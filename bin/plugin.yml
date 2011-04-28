@@ -1,0 +1,4 @@
+name: Thunder
+main: com.bukkit.jason.thunderTools.ThunderTools
+version: 0.1
+author: petrifiednightmares
