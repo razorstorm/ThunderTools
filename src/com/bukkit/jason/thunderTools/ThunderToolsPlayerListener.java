@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerListener;
 public class ThunderToolsPlayerListener extends PlayerListener
 {
 	private final ThunderTools plugin;
+	private int task;
 
 	public ThunderToolsPlayerListener(final ThunderTools instance)
 	{
@@ -49,6 +50,7 @@ public class ThunderToolsPlayerListener extends PlayerListener
 								}
 							}
 						}, 40l);
+						setInvul(player);
 					}
 				}
 			}
@@ -97,23 +99,29 @@ public class ThunderToolsPlayerListener extends PlayerListener
 							}
 						}
 					}
-					plugin.light.put(player.getName(), true);
-					plugin.getServer().getScheduler().cancelAllTasks();
-					plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
-					{
-						public void run()
-						{
-							try
-							{
-								plugin.light.put(player.getName(), false);
-							}
-							catch (Exception e)
-							{
-							}
-						}
-					}, 50l);
+					setInvul(player);
 				}
 			}
+
 		}
+	}
+
+	private void setInvul(final Player player)
+	{
+		plugin.light.put(player.getName(), true);
+		plugin.getServer().getScheduler().cancelTask(task);
+		task = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					plugin.light.put(player.getName(), false);
+				}
+				catch (Exception e)
+				{
+				}
+			}
+		}, 50l);
 	}
 }
