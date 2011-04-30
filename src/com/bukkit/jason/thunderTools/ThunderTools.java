@@ -5,9 +5,12 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.nijikokun.bukkit.Permissions.Permissions;
 
 /**
  * Road for Bukkit
@@ -24,6 +27,7 @@ public class ThunderTools extends JavaPlugin
 	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Boolean> light = new HashMap<String, Boolean>();
 	public static PluginDescriptionFile pdfFile;
+	public static Plugin permissions = null;
 
 	public void onEnable()
 	{
@@ -38,6 +42,19 @@ public class ThunderTools extends JavaPlugin
 		// EXAMPLE: Custom code, here we just output some info so we can check
 		// all is well
 		System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
+		permissions = this.getServer().getPluginManager().getPlugin("Permissions");
+	}
+
+	public static Boolean permission(Player player, String line)
+	{
+		if (permissions != null)
+		{
+			return (((Permissions) permissions).getHandler()).has(player, line);
+		}
+		else
+		{
+			return player.isOp();
+		}
 	}
 
 	public void onDisable()

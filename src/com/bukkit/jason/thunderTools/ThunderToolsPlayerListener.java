@@ -26,9 +26,9 @@ public class ThunderToolsPlayerListener extends PlayerListener
 		if (event.hasItem())
 		{
 			final Player player = event.getPlayer();
-			if (player.isOp())
+			if (event.getItem().getTypeId() == ThunderToolsSettings.strikeItem && ThunderToolsSettings.strikeEnabled)
 			{
-				if (event.getItem().getTypeId() == ThunderToolsSettings.strikeItem && ThunderToolsSettings.strikeEnabled)
+				if (ThunderTools.permission(player, "ThunderTools.strike"))
 				{
 					if ((event.getAction() == Action.LEFT_CLICK_BLOCK) || (event.getAction() == Action.LEFT_CLICK_AIR))
 					{
@@ -51,7 +51,10 @@ public class ThunderToolsPlayerListener extends PlayerListener
 						}, 40l);
 					}
 				}
-				else if (event.getItem().getTypeId() == ThunderToolsSettings.stormItem && ThunderToolsSettings.stormEnabled)
+			}
+			else if (event.getItem().getTypeId() == ThunderToolsSettings.stormItem && ThunderToolsSettings.stormEnabled)
+			{
+				if (ThunderTools.permission(player, "ThunderTools.storm"))
 				{
 					Location loc = null;
 					if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR))
@@ -93,8 +96,6 @@ public class ThunderToolsPlayerListener extends PlayerListener
 								player.getWorld().strikeLightning(temp);
 							}
 						}
-						// System.out.println("mag: " + mag + " circum: " +
-						// circum+ " actual: "+actual);
 					}
 					plugin.light.put(player.getName(), true);
 					plugin.getServer().getScheduler().cancelAllTasks();
@@ -115,5 +116,4 @@ public class ThunderToolsPlayerListener extends PlayerListener
 			}
 		}
 	}
-
 }
