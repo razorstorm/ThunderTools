@@ -15,6 +15,7 @@ public class ThunderToolsPlayerListener extends PlayerListener
 {
 	private final ThunderTools plugin;
 	private int task;
+	private int strikeTask;
 
 	public ThunderToolsPlayerListener(final ThunderTools instance)
 	{
@@ -36,8 +37,8 @@ public class ThunderToolsPlayerListener extends PlayerListener
 						player.getWorld().strikeLightning(player.getTargetBlock(null, 3000).getLocation());
 						plugin.light.put(player.getName(), true);
 						event.getItem().setDurability((short) 9999999);
-						plugin.getServer().getScheduler().cancelAllTasks();
-						plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
+						plugin.getServer().getScheduler().cancelTask(strikeTask);
+						strikeTask=plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
 						{
 							public void run()
 							{
