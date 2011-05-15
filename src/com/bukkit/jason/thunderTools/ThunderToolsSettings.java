@@ -20,6 +20,9 @@ public class ThunderToolsSettings
 	public static int stormItem = 280;
 	public static boolean redstoneEnabled = true;
 	public static int redstoneItem = 61;
+	public static boolean explosionEnabled = false;
+	public static float explosionForce= 2;
+	
 
 	/**
 	 * Bukkit config class
@@ -76,6 +79,9 @@ public class ThunderToolsSettings
 			tempConfig.setProperty("storm.item", stormItem);
 			tempConfig.setProperty("redstone.enabled", redstoneEnabled);
 			tempConfig.setProperty("redstone.item", redstoneItem);
+			tempConfig.setProperty("explosion.enabled", explosionEnabled);
+			tempConfig.setProperty("explosion.force", explosionForce);
+			
 
 			tempConfig.save();
 
@@ -93,6 +99,10 @@ public class ThunderToolsSettings
 			bw.write("#redstone.enabled determines whether redstone triggered lightning blocks are enabled. Defaults to "+redstoneEnabled);
 			bw.newLine();
 			bw.write("#redstone.item determines which block acts as redstone triggered lightning block. Defaults to "+redstoneItem);
+			bw.newLine();
+			bw.write("#explosion.enabled determines whether there is an explosion at the point of lightning Defaults to "+explosionEnabled);
+			bw.newLine();
+			bw.write("#explosion.force determines the explosion force Defaults to "+explosionForce);
 			bw.newLine();
 			bw.newLine();
 			while (sc.hasNextLine())
@@ -123,6 +133,8 @@ public class ThunderToolsSettings
 		stormItem=config.getInt("storm.item", stormItem);
 		redstoneEnabled = config.getBoolean("redstone.enabled", redstoneEnabled);
 		redstoneItem=config.getInt("redstone.item", redstoneItem);
+		explosionEnabled=config.getBoolean("explosion.enabled", explosionEnabled);
+		explosionForce=(float) config.getDouble("explosion.force", explosionForce);
 	}
 
 }

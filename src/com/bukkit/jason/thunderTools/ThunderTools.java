@@ -2,6 +2,9 @@ package com.bukkit.jason.thunderTools;
 
 import java.util.HashMap;
 
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
@@ -84,5 +87,15 @@ public class ThunderTools extends JavaPlugin
 	public void setDebugging(final Player player, final boolean value)
 	{
 		debugees.put(player, value);
+	}
+	
+	public static void customLightning(World w, Location l)
+	{
+		w.strikeLightning(l);
+		if(ThunderToolsSettings.explosionEnabled)
+		{
+			net.minecraft.server.WorldServer world= ((CraftWorld)w).getHandle();
+			world.a(null, l.getX(), l.getY(), l.getZ(), 2f);
+		}
 	}
 }

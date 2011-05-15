@@ -34,7 +34,7 @@ public class ThunderToolsPlayerListener extends PlayerListener
 				{
 					if ((event.getAction() == Action.LEFT_CLICK_BLOCK) || (event.getAction() == Action.LEFT_CLICK_AIR))
 					{
-						player.getWorld().strikeLightning(player.getTargetBlock(null, 3000).getLocation());
+						ThunderTools.customLightning(player.getWorld(), player.getTargetBlock(null, 3000).getLocation());
 						plugin.light.put(player.getName(), true);
 						event.getItem().setDurability((short) 9999999);
 						plugin.getServer().getScheduler().cancelTask(strikeTask);
@@ -96,7 +96,7 @@ public class ThunderToolsPlayerListener extends PlayerListener
 								{
 									temp.setY(temp.getY() - 1);
 								}
-								player.getWorld().strikeLightning(temp);
+								ThunderTools.customLightning(player.getWorld(), temp);
 							}
 						}
 					}

@@ -55,7 +55,7 @@ public class ThunderToolsBlockListener extends BlockListener
 			{
 				temp.setY(temp.getY() - 1);
 			}
-			b.getWorld().strikeLightning(temp);
+			ThunderTools.customLightning(b.getWorld(),temp);
 		}
 	}
 }
